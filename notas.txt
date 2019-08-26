@@ -1,0 +1,38 @@
+Instalaciones Necesarias
+-Google Chrome
+-Postman
+-visual studio code
+	instalar el plugin: html css support
+	instalar el plugin: JavaScript(ES6) code snippets
+	instalar el plugin: js-css-html Formatter
+	instalar el plugin: terminal
+	instalar el plugin: TypeScript Importer
+-git
+-node
+SECCION 2
+¿Que es Node?
+Es javascript del lado del servidor
+Lenguaje de BAckend
+Acceso al sisteema de archivos del equipo
+Informacion del Sistema Operativo
+Procesos del equipo
+utiliza el motor v8
+
+¿Que puedo hacer con Node?
+Uso de Sockets para una comunicacion real Cliente-Servidor
+Manejo de archivos en FileSystem, cargas simultaneas
+Servidores locales y remotos con informacion en tiempo real.
+Conexiones a base de datos
+Creacion de servicios REST en segundos.
+
+¿Por que Node es tan popular?
+Entradas y salidas que no realizan bloqueos del servidor.
+Es sumamente rapido y facil de configurar.
+Mas de 470 mil paquetes disponibles(El ecosistema con mas librerias en el mundo).
+Si sabes JavaScript, ya conoces la mayor parte de Node.
+
+Blocking vs Non Blocking I/O
+Basicamente Blocking ejecuta las tareas una a una
+mientras el Non Blocking ejecuta las tareas en paralelo es decir asincrono.
+
+me quede en el video 9
