@@ -35,4 +35,70 @@ Blocking vs Non Blocking I/O
 Basicamente Blocking ejecuta las tareas una a una
 mientras el Non Blocking ejecuta las tareas en paralelo es decir asincrono.
 
-me quede en el video 9
+HOLA MUNDO
+Creamos una carpeta con nombre 01-hola-mundo
+Luego dentro de la carpeta creamos un archivo app.js
+y colocamos estas instrucciones
+
+let nombre= "Eddy";
+console.log('Hola '+nombre);
+console.log(`Hola ${ nombre }`);
+
+luego navegamos a este folder y ejecutamos por consola
+node app.js
+
+Node funciona con tres bloques
+Pila de procesos: Es el main y aca los procesos se ejecutan de manera secuencial
+Node Apis: son procesos los cuales estan a la espera de ejecutarse
+Cola de callback: son los procesos que estaban en la Node Apis y estan pronto a ejecutarse en la pila de procesos.
+
+
+NODEMON
+Paquetes son codigos que han desarrollado otras personas y nos ayudan a funciones especificas.
+Buscamos npm nodemon en el navegador y el siguiente comando es el que debemos ejecutar para instalar nodemon
+npm install -g nodemon
+
+Esta instrucion ejecuta el programa y se queda a la espera de los cambios de la applicacion para volver a ejecutarla
+nodemon app.js 
+
+LET VRS VAR
+El let y el var hacen lo mismo declaran una variable.
+
+VAR
+Al declarar la variable var esta funciona globalmente es decir en cualquier punto del codigo se puede redeclarar y reasignar el valor de la variable.
+
+LET
+Al declarar una variable con let a esta no se puede redeclarar sin embargo el cambio de valor se puede realizar sin ningun problema siempre se llame a la variable por su nombre y sin utilizar la instruccion let delante del nombre pues esto seria una redeclaracion de variable.
+
+El let es lo que mas se utiliza hoy en dia.
+
+
+Template String
+otra forma de escribir y concatenar en la consola y en variables
+
+console.log(nombre+" "+real);
+console.log(`${ nombre } ${ real }`)
+
+function getNombre(){
+	return ` ${ nombre } es ${ real } `;
+}
+console.log(`El nomde de: ${ getNombre() }`);
+
+basicamente utilizando esas pequeñas comillas podemos inyectar javascript
+
+
+DESCTRUCTURACION
+Basicamente es crear varias variables al momento de traer las propiedades de un objeto
+y somos capaces de ponerle alias a dichas variables.
+let deadpool = {
+	nombre: "Wade",
+	apellido: "Winston",
+	poder: "Regeneracion",
+	getNombre: function(){
+		return `${ this.nombre } ${ this.apellido } - poder: ${this.poder} `;
+	}
+};
+
+let { nombre:primerNombre,apellido, poder }=deadpool;
+
+Me quede en el video 18 Funciones Flecha
