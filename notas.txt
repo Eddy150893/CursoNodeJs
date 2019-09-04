@@ -101,4 +101,39 @@ let deadpool = {
 
 let { nombre:primerNombre,apellido, poder }=deadpool;
 
-Me quede en el video 18 Funciones Flecha
+FUNCIONES FLECHA
+Basicamente es un cambio en la sintaxi pero hace exactamente lo mismo que una funcion
+function sumar(a,b){
+	return a + b;
+}
+En flecha de varias lineas
+let sumar = (a,b) =>{
+	return a + b;
+}
+En flecha de una sola linea
+let sumar = (a,b) => a + b;
+
+y la llamada se hace como siempre
+NOTA: en las funciones flechas si no tiene argumentos(parametros) entonces solo se pone los parentesis vacios y si solo tiene un argumento los parentesis son opcionales.
+Para todos los demas siempre van los parentesis.
+
+CallBack
+Es una funcion que se ejecuta despues de que algo sucede
+
+
+let getUsuarioById = (id, callback) => {
+
+	let usuario={
+		nombre:"Eddy",
+		id
+	}
+	callback(usuario);
+}
+
+getUsuarioById(10,(usuario) => {
+	console.log('Usuario de base de datos ', usuario);
+});
+
+Primero se declaro una funcion que recibira dos parametros uno es un dato y el otro es una funcion que se ejecutara luego de algun codigo anterior a ella en la funcion principal
+en el ejemplo anterior primero se declara el objeto y luego se ejecuta la funcion flecha que recibe el usuario(objeto) y para que todo eso pase llamamos a la funcion principal que en este caso es getUsuarioById
+Me quede en el video 19
