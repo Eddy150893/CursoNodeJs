@@ -243,3 +243,102 @@ Nota: el catch maneja ambos errores y mostrata lo que se le envie en el reject d
 
 ASYNC-AWAIT
 La palabra reservada async ademas de declarar una funciona asincrono devuelve una promesa es decir que en lugar de utilizar promesas podemos utilizar funciones asincronas; el awit por otro lado funciona de manera sincrona y se basa en la promesa de un return es decir espera hasta que se le devuelva algo para seguir la ejecucion como su nombre lo indica espera a la respuesta de una funcion asyncrona por ello el await solo puede ser declarado dentro de una funciona asincrona si la funciona no es asincrona entonces el await no puede ser declarado
+
+En las funciones que devuelven promesas si las queremos convertir a funciones asincronas solo debemos eliminar la promesa luego los reject convertirlos en errores y los resolve en returns 
+Ejemplo
+
+Funcion con PROMESA
+
+let getEmpleado=(id)=>{
+	return new Promise( (resolve,reject) =>{
+	let empleadoDB=empleados.find(empleado => empleado.id === id);
+		if(!empleadoDB){
+			reject(`No existe un empleado con el ID ${ id }`)
+		}else{
+			resolve(empleadoDB);
+		}	
+	});	
+}
+
+Funcion con Async(la misma funcion de arriba)
+
+let getEmpleado= async (id)=>{
+	
+	let empleadoDB=empleados.find(empleado => empleado.id === id);
+		if(!empleadoDB){
+			throw new Error(`No existe un empleado con el ID ${ id }`)
+		}else{
+			return empleadoDB;
+		}	
+		
+}
+
+BASES DE NODE
+Requerir paquetes en node
+existen tres tipo de requires y son
+1. librerias que ya vienen por defecto cuando instalamos node
+2. librerias que no vienen por defecto y las requerimos para ello hay que instalarlas primero
+3. archivos que nosotros mismos hemos programado y requerimos por medio de la url
+o direccion en la cual esten en nuestro proyecto
+
+Sintaxis
+const name_var = require('name_library')
+
+MODULE
+En node existe un objeto global llamado "module" y si hacemos un console.log(module) nos muestra la informacion relevante a el.
+
+ Module {
+  id: '.',
+  path: 'D:\\Cursos\\CursoNodeJs\\03-bases-node',
+  exports: {},
+  parent: null,
+  filename: 'D:\\Cursos\\CursoNodeJs\\03-bases-node\\app.js',
+  loaded: false,
+  children: [],
+  paths: [
+    'D:\\Cursos\\CursoNodeJs\\03-bases-node\\node_modules',
+    'D:\\Cursos\\CursoNodeJs\\node_modules',
+    'D:\\Cursos\\node_modules',
+    'D:\\node_modules'
+  ]
+}
+
+objeto global que esta disponible a lo largo de toda la aplicacion y alli se pueden agregar los elementos de forma global
+
+
+Si queremos crear logica en un archivo y luego hacerlo global para que pueda 
+ser requerido desde cualquier otra parte del proyecto debemos exportalos
+Ejemplo
+module.exports = {
+	crearArchivo
+}
+esto lo que hace es exportar el objeto en este caso una funcion crearArchivo 
+y si esta funcion la queremos utilizar en otra parte del proyecto
+
+podemos utilizar destructuracion 
+const { crearArchivo } = require('./multiplicar/multiplicar.js')
+
+PROCESS
+Es una variable entorno que tiene muchisima informacion acerca
+del S.O usuario procesador etc etc
+console.log(process)
+
+con la instruccion anterior podemos ver todo lo que tiene
+en el process existe una variable de argumentos
+
+RECIBIR PARAMETROS DESDE CONSOLA
+process.argv // este comando obtiene los argumentos que le enviamos por consola
+
+Ejemplo
+enviamos como parametro la siguiente variable
+--base=5
+
+node app.js --base=5
+
+si queremos obtener el valor 5 lo hacemos de la siguiente forma
+let argv = process.argv;//toma la variable de entorno process y manda a llamar su array argv que son los argumentos de consola
+let parametro = argv[2];//le decimos que queremos el argumento 2 ya que el 0 y 1 son argumentos por default de node
+let base = parametro.split('=')[1];//luego separamos el string --base=5 por medio de split el cual lo convierte automaticamente en otro array e indicamos que queremos el elemento 1 el cual seria el valor que necesitamos
+console.log(base);//imprimimos el valor
+
+Me quede en el video 32
