@@ -186,5 +186,60 @@ let getEmpleado=(id)=>{
 	});	
 }
 
-al llamar a la funcion padre que devuelve la promesa esta debe declarar las dos promesas que en al declarar la funcion padre solo fueron referenciadas.
-Me quede en el video 21
+al llamar a la funcion padre que devuelve la promesa;esta debe declarar las dos promesas que al declarar la funcion padre solo fueron referenciadas.
+el then es la declaracion del resolve
+y el err es la declaracion del err
+getEmpleado(3).then( empleado => {
+	console.log('Empleado de la BD', empleado);
+},(err) =>{
+	console.log(err);
+});
+
+PROMESAS EN CADENA
+Si declaramos dos funciones padres que devuelven una promesa y que asu vez una necesite de la otra podemos encadenar dichar promesas de la siguiente manera
+Declaracion 1
+
+let getEmpleado=(id)=>{
+	return new Promise( (resolve,reject) =>{
+	let empleadoDB=empleados.find(empleado => empleado.id === id);
+		if(!empleadoDB){
+			reject(`No existe un empleado con el ID ${ id }`)
+		}else{
+			resolve(empleadoDB);
+		}	
+	});	
+}
+
+Declaracion 2
+
+let getSalario = (empleado)=>{
+	return new Promise( (resolve, reject)=>{
+		let salarioDB=salarios.find( salario => salario.id === empleado.id)
+	if(!salarioDB){
+		reject(`No se encontro un salario para el usuario ${ empleado.nombre}`);
+	}else{
+		resolve({
+			nombre:empleado.nombre,
+			salario:salarioDB.salario,
+			id: empleado.id});
+	}
+	})
+}
+
+aplicacion de promesas encadenadas
+getEmpleado(5).then( empleado =>{
+	return getSalario(empleado);
+})
+.then(resp =>{
+	console.log(`El salario de ${ resp.nombre } es de ${ resp.salario} `);
+})
+.catch(err =>{
+	console.log(err);
+})
+La primer promesa(primer then) devuelve la segunda funcion padre y si es error salta directamente al catch y si es correcta entonces aplica la
+segunda funciona padre la cual si es verdadera responde con el usuario y salario(segundo then) de lo contrario salta al error
+Nota: el catch maneja ambos errores y mostrata lo que se le envie en el reject de la funcion padre que fallo
+
+
+ASYNC-AWAIT
+La palabra reservada async ademas de declarar una funciona asincrono devuelve una promesa es decir que en lugar de utilizar promesas podemos utilizar funciones asincronas; el awit por otro lado funciona de manera sincrona y se basa en la promesa de un return es decir espera hasta que se le devuelva algo para seguir la ejecucion como su nombre lo indica espera a la respuesta de una funcion asyncrona por ello el await solo puede ser declarado dentro de una funciona asincrona si la funciona no es asincrona entonces el await no puede ser declarado
