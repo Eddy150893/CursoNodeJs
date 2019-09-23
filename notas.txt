@@ -341,4 +341,21 @@ let parametro = argv[2];//le decimos que queremos el argumento 2 ya que el 0 y 1
 let base = parametro.split('=')[1];//luego separamos el string --base=5 por medio de split el cual lo convierte automaticamente en otro array e indicamos que queremos el elemento 1 el cual seria el valor que necesitamos
 console.log(base);//imprimimos el valor
 
-Me quede en el video 32
+npm init // ayuda a la creacion del package.json
+nos va preguntando la informacion acerca de la app
+una de las caracteristicas mas importantes es el 
+entrypoint que es el archivo principal(main)
+
+Package.json contiene toda la informacion acerca de las librerias y dependencias que vamos a utilizar en nuestro 
+proyect
+
+npm i yargs --save//el --save significa que es una dependencia necesaria para que funcione nuestro programa
+
+npm install --save-dev nodemon//significa que solo es una dependencia de desarrollo
+
+DESINSTALAR UN PAQUETE CON NPM
+npm uninstall nodemon//Elimina los paquetes instalados
+
+
+color -npm
+npm install colors --save
