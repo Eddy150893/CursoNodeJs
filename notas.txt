@@ -359,3 +359,96 @@ npm uninstall nodemon//Elimina los paquetes instalados
 
 color -npm
 npm install colors --save
+
+Archivos en node
+const fs = require('fs');
+Ejemplo
+ fs.writeFile('db/data.json', data, (err) => {
+        if (err) throw new Error('No se puede grabar', err);
+    });
+/*El writeFile 
+    Primer argumento: nombre y ubicacion del archivo donde se va a guardar
+    De no encontrar el archivo lo crea
+    Segundo argumento: data que se va escribir en el archivo
+    Tercer argumento: error que se debe manejar si no se puede guardar
+    en el archivo*/
+
+Ciclos For en NPM
+1. conociendo el limite
+for(let i=1;i<=limite;i++){
+	console.log(` ${ i }  \n`);
+}
+2. sin conocer el limite
+la variable listado es un array que trae objetos json
+for(let tarea of listado){
+			console.log(tarea.descripcion)
+}
+Yargs: es un paquete mediante el cual podemos definir argumentos y opciones de estos argumentos que se le pasaran 
+a un programa escrito en node mediante la interfaz de comandos 
+Analogia
+pwd // comando de la interfaz de linux
+npm start// comando de la interfaz npm
+node app crear desc Dormir // comando que le pasa el argumento crear con la opcion desc a un programa de node
+
+Como usar Yargs
+1. Primero instalar el paquete yargs
+	npm i yargs --save
+2. Crear un archivo donde definiremos los argumentos que le enviaremos a nuestra aplicacion se recomienda crearlo de la siguiente manera	
+	config/yargs.js
+3. En el documento anterior requerir yargs
+	const argv = require('yargs')
+4. Definir nuestros comandos con sus alias y opciones asi como si tendran help y por ultimo poner el argv
+	.command('crear', 'Crear un elemento por hacer', {
+        descripcion: {
+            demand: true,
+            alias: 'd',
+            desc: 'Descripcion de la tarea por hacer'
+        }
+    })
+	.help()
+    .argv;
+Notas: .command 
+	Recibe como primer parametros el nombre del argumento que recibira nuestra aplicacion en este caso crear
+	Recibe como segundo parametro una descripcion del comando en este caso la descripcion del comando es "Crear un elemento por hacer"
+	Recibe como tercer parametro un objeto con las diferentes opciones que tendra el comando crear en este caso solo tiene una opcion llamada
+	descripcion y se define si es una opcion obligatoria(demand) su alias(d) y una descripcion en este caso de la opciony no del comando
+	.help 
+	indica que al usuario tipear
+	node app --help 
+	podra observar las descripciones de los comandos   
+	.argv
+	indica como vamos a acceder a esos comandos
+Ejemplo del comando definido arriba asumiendo que la aplicacion se llame app
+node app crear -d HolaMundo
+node app: ejecuta el programa
+crear: recibimos un comando
+-d: recibimos una opcion de dicho comando
+HolaMundo es el valor que ha tomado la opcion
+5. exportar todos esos comandos por medio de argv de la siguiente manera
+	module.exports = {
+    argv	
+	}
+6. Requerir el archivo donde definimos todos nuestros comandos
+	const argv = require('./config/yargs').argv;
+6.5 Para obtener el comando  introducidos mediante consola y guardarlos en una variable en el archivo que tendra 
+	la logica descrita en el siguiente paso.
+	let comando = argv._[0];
+6.8 Para obtener el valor de la opcion introducida de un comando como en el del caso anterior(descripcion)
+	argv.descripcion
+7. Crear la logica que se aplicara segun el comando y opciones introducidas  
+	let comando = argv._[0];
+
+switch (comando) {
+    case 'crear':
+        let tarea = porHacer.crear(argv.descripcion);//porHacer es un objeto que se construyo en otro archivo y solo requerimos
+        console.log(tarea);
+        break;
+    case 'listar':
+        let listado = porHacer.getListado();
+        for (let tarea of listado) {
+            console.log('=======Por Hacer========'.green);
+            console.log(tarea.descripcion);
+            console.log('Estado', tarea.completado);
+            console.log('========================='.green);
+        }
+        break
