@@ -341,6 +341,7 @@ let parametro = argv[2];//le decimos que queremos el argumento 2 ya que el 0 y 1
 let base = parametro.split('=')[1];//luego separamos el string --base=5 por medio de split el cual lo convierte automaticamente en otro array e indicamos que queremos el elemento 1 el cual seria el valor que necesitamos
 console.log(base);//imprimimos el valor
 
+CREAR UN PROYECTO DE NODE 
 npm init // ayuda a la creacion del package.json
 nos va preguntando la informacion acerca de la app
 una de las caracteristicas mas importantes es el 
@@ -452,3 +453,32 @@ switch (comando) {
             console.log('========================='.green);
         }
         break
+
+Si no quisieramos configurar comandos si no mas bien solo opciones 
+podremos utilizar la siguiente sintaxis al momento de requerir yargs
+const argv = require('yargs').options({
+    direccion:{
+        alias:'d',
+        desc:'Dirección de la ciudad para obtener el clima',
+        demand:true
+    }
+}).argv;
+
+TAGS de GIT 
+git tag -a v1.0.0 -m "Primera version"
+git push --tags
+
+Luego en github
+reales
+create realese
+
+
+PETICIONES REST
+axios: Trabaja en base a promesas
+request: en base a call backs
+
+Si en una peticion ingresaremos parametros tenemos que utilizar
+un tipo de codificacion para las urls
+esto se hace de la siguiente manera
+const encodedUrl=encodeURI(argv.direccion);
+donde argv.direccion es un argumento que se le introduce a la app
