@@ -482,3 +482,90 @@ un tipo de codificacion para las urls
 esto se hace de la siguiente manera
 const encodedUrl=encodeURI(argv.direccion);
 donde argv.direccion es un argumento que se le introduce a la app
+
+Webserver(http)
+Para crear un web server node ya tiene una libreria predestinada 
+para ello y es http
+
+Ejemplo
+const http = require('http');
+http.createServer((req, res) => {
+        res.write('Hola Mundo');
+        res.end();
+    })
+    .listen(8080);
+
+Variacion del Ejemplo
+const http = require('http');
+http.createServer((req, res) => {
+        res.writeHead(200, { 'Content-type': 'application/json' })
+        let salida = {
+            nombre: 'Eddy',
+            edad: 32,
+            url: req.url
+        }
+        res.write(JSON.stringify(salida));
+        // res.write('Hola Mundo');
+        res.end();
+    })
+    .listen(8080);
+
+Express
+Instalar Express
+npm install express --save
+
+Ejemplo
+const express = require('express');
+const app = express();
+
+app.get('/', function(req, res) {
+    res.send('hello world');
+});
+app.listen(3000)
+
+Variacion del ejemplo
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('hello world');
+});
+app.listen(3000)
+
+Ejemplo
+Variacion de http utilizando Express
+no hay que indicarle que es un application json
+lo detecta automaticamente
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    // res.send('hello world');
+    let salida = {
+        nombre: 'Eddy',
+        edad: 32,
+        url: req.url
+    }
+    res.send(salida);
+
+});
+app.listen(3000)
+
+Servir Contenido Estatico
+
+Middleware
+un middleware es un callback que se va a ejecutar siempre
+no importando la direccion que se solicite
+
+Creamos una carpeta llamada public en la raiz del proyecto
+creamos un archivo html
+y luego en el server donde tenemos la ruta creamos un middleware
+app.use(express.static(__dirname + '/public'));
+
+si tenemos un servicio en el que se acceda con /
+debemos comentarlo o cambiarle el nombre 
+el middleware declarado con anterioridad deja la carpeta
+publica para que puedan acceder a ella con solo poner 
+en el navegador localhost:3000/
+
