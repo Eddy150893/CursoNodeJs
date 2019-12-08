@@ -700,11 +700,14 @@ Nota se coloco ese comando ya que asi es como levanta nuestro servidor pero podr
 ser cualquier otro comando como nodemon server.js, etc etc
 12. Crear archivo git ignore e ignorar los node_modules
 Empezamos a trabajar como si fuera git, abrimos una consola y ejecutamos
-13. git add .
+13. git add . 
 14. git commit -m "primer init"
+NOTA: Si ya se tiene en git el proyecto y ademas ya se hizo el ultimo commit no es necesario el paso 12 y 14
 15. heroku login
 16. colocamos correo de heroku
 17. contraseña de heroku
 18. heroku git:remote -a <nombre de app del paso 3>
 19. git push heroku master
 20. Luego heroku nos provee el link
+21. Para subir mas cambios a heroku se utiliza
+git push heroku master
