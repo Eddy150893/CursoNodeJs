@@ -711,3 +711,67 @@ NOTA: Si ya se tiene en git el proyecto y ademas ya se hizo el ultimo commit no 
 20. Luego heroku nos provee el link
 21. Para subir mas cambios a heroku se utiliza
 git push heroku master
+
+Mongodb
+1. Descargar la bbdd mongodb en su pagina oficial
+la version community
+2. Instalar la bbdd 
+3. El el disco local C creamos una carpeta llamada data
+4. dentro de la carpeta data creamos otra llamada db
+Nota: Al instalar mongodb podemos instalarlo como servicio
+si no de lo contrario siempre tendriamos que ejecutarlo y esto se 
+hace ejecutando el archivo 
+D:\Programas_Instalados\mongo\bin\mongod.exe
+y luego
+D:\Programas_Instalados\mongo\bin\mongo.exe
+2. Descarga el cliente Robo 3t
+
+Rest Server
+1. npm init
+2. Si a todo
+3. Instalar express con 
+	npm install express --save
+4. Creamos un nuevo folder llamado server
+5. creamos un archivo en el folder del paso anterior
+   llamado server.js
+6. En el archivo del paso anterior colocamos el siguiente 
+	codigo
+
+const express = require('express');
+const app = express();
+
+app.get('/', function(req, res) {
+    res.json('Hello World');
+})
+
+app.listen(3000, () => {
+    console.log('Escuchando puerto: ', 3000)
+});
+
+7. Rutas con parametros
+
+app.put('/usuario/;id', function(req, res) {
+    let id = req.params.id;
+    res.json({id});
+})
+
+Body Paser
+8. instalar body parser-> paquete encargado de serializar en un 
+objeto json la informacion del request que trae una peticion Postman
+
+npm install body-parser --save
+
+9. Para la configuracion en el server.js agregamos las siguientes
+lineas
+
+const bodyParser=require('body-parser');
+app.use(bodyParser.urlencoded({ extended:false }))
+
+Nota: Siempre que veamos un app.use son midlewares ademas
+en el codigo anterior en el body parser utilizamos
+urlencoded pero podemos utilizar el json que es el 
+que mas se utilizas
+
+10. utilizar el body parser en una peticion post
+
+
