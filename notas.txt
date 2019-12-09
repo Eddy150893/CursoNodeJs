@@ -1,4 +1,4 @@
-Instalaciones Necesarias
+﻿Instalaciones Necesarias
 -Google Chrome
 -Postman
 -visual studio code
@@ -341,6 +341,7 @@ let parametro = argv[2];//le decimos que queremos el argumento 2 ya que el 0 y 1
 let base = parametro.split('=')[1];//luego separamos el string --base=5 por medio de split el cual lo convierte automaticamente en otro array e indicamos que queremos el elemento 1 el cual seria el valor que necesitamos
 console.log(base);//imprimimos el valor
 
+CREAR UN PROYECTO DE NODE 
 npm init // ayuda a la creacion del package.json
 nos va preguntando la informacion acerca de la app
 una de las caracteristicas mas importantes es el 
@@ -452,3 +453,325 @@ switch (comando) {
             console.log('========================='.green);
         }
         break
+
+Si no quisieramos configurar comandos si no mas bien solo opciones 
+podremos utilizar la siguiente sintaxis al momento de requerir yargs
+const argv = require('yargs').options({
+    direccion:{
+        alias:'d',
+        desc:'Dirección de la ciudad para obtener el clima',
+        demand:true
+    }
+}).argv;
+
+TAGS de GIT 
+git tag -a v1.0.0 -m "Primera version"
+git push --tags
+
+Luego en github
+reales
+create realese
+
+
+PETICIONES REST
+axios: Trabaja en base a promesas
+request: en base a call backs
+
+Si en una peticion ingresaremos parametros tenemos que utilizar
+un tipo de codificacion para las urls
+esto se hace de la siguiente manera
+const encodedUrl=encodeURI(argv.direccion);
+donde argv.direccion es un argumento que se le introduce a la app
+
+Webserver(http)
+Para crear un web server node ya tiene una libreria predestinada 
+para ello y es http
+
+Ejemplo
+const http = require('http');
+http.createServer((req, res) => {
+        res.write('Hola Mundo');
+        res.end();
+    })
+    .listen(8080);
+
+Variacion del Ejemplo
+const http = require('http');
+http.createServer((req, res) => {
+        res.writeHead(200, { 'Content-type': 'application/json' })
+        let salida = {
+            nombre: 'Eddy',
+            edad: 32,
+            url: req.url
+        }
+        res.write(JSON.stringify(salida));
+        // res.write('Hola Mundo');
+        res.end();
+    })
+    .listen(8080);
+
+Express
+Instalar Express
+npm install express --save
+
+Ejemplo
+const express = require('express');
+const app = express();
+
+app.get('/', function(req, res) {
+    res.send('hello world');
+});
+app.listen(3000)
+
+Variacion del ejemplo
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('hello world');
+});
+app.listen(3000)
+
+Ejemplo
+Variacion de http utilizando Express
+no hay que indicarle que es un application json
+lo detecta automaticamente
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    // res.send('hello world');
+    let salida = {
+        nombre: 'Eddy',
+        edad: 32,
+        url: req.url
+    }
+    res.send(salida);
+
+});
+app.listen(3000)
+
+Servir Contenido Estatico
+
+Middleware
+un middleware es un callback que se va a ejecutar siempre
+no importando la direccion que se solicite
+
+Creamos una carpeta llamada public en la raiz del proyecto
+creamos un archivo html
+y luego en el server donde tenemos la ruta creamos un middleware
+app.use(express.static(__dirname + '/public'));
+
+si tenemos un servicio en el que se acceda con /
+debemos comentarlo o cambiarle el nombre 
+el middleware declarado con anterioridad deja la carpeta
+publica para que puedan acceder a ella con solo poner 
+en el navegador localhost:3000/
+
+Si quisieramos mas paginas estaticas solo tendriamos que crear en la 
+carpeta public todos las paginas por ejemplo home.html
+al habe declarado el middleware 
+app.use(express.static(__dirname + '/public'));
+y poner la direccion localhost:3000/ dicho middleware siempre
+buscara un index.html
+si quisieramos acceder al home tendriamos que indicar lo siguiente
+localhost:3000/home.html
+es decir colocar el nombre completo del archivo con su extension.
+
+INSTALAR BOOTSTRAP EN NUESTRO PROYECTO
+npm install bootstrap
+
+Express y Hbs en paginas dinamicas
+Handlebars 
+Realmente vamos a utilizar npm Hbs 
+npm install hbs --save
+
+IMPORTAR HANDLEBARS
+Para utlizar hbs como default engine para renderizar las paginas 
+necesitamos importarlo de la siguiente manera en el server.js
+app.set('view engine','hbs');
+
+Nota: al utilizar express con hbs no es necesario poner la ruta completado
+de los archivos css y js por ejemplo se puede utilizar esto
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+en lugar de esto
+<link rel="stylesheet" href="../public/assets/css/bootstrap.min.css">
+
+RENDERIZAR PAGINAS CON EXPRESS
+Para renderizar paginas utilizando hbs solo se debe colocar en la ruta 
+el render ejemplo:
+
+app.get('/', (req, res) => {
+    res.render('home.hbs');
+});
+
+PAGINAS WEB DINAMICAS CON HBS
+utilizamos hbs para hacer variable el contenido de una pagina web por medio de la sintaxis
+<p>{{nombre}</p>
+Para enviarle el contenido variable a la pagina web lo hacemos de la siguiente manera
+app.get('/', (req, res) => {
+    res.render('home',{
+        nombre:'Eddy',
+        anio: new Date().getFullYear()
+    });
+});
+
+Parciales con hbs(Templates)
+Para trabajar con parciales debemos colocar 
+const hbs = require('hbs'); en el archivos server.js
+luego la funcion que registra los parciales con la ubicacion donde se encontraran
+dicho parciales.
+
+hbs.registerPartials(__dirname + '/views/parciales');
+
+Luego en la ruta /views/parciales
+Creamos los archivos que serviran como templates(componentes en react)
+con extension .hbs  dentro de estos archivos colocamos el html correspondiente a los templates
+por ejemplo navbar.hbs
+y para mandar a llamar este template o componente se hace de la siguient manera en el archivo
+donde se quiere mandar a llamar por ejemplo home.hbs 
+se coloca en la parte donde queremos el template  de la siguiente manera
+{{> navbar }}
+es decir hadlebars inmediatamente(sin espacio) mayor que y luego espacio nombre del template
+en este caso navbar.
+
+NODEMON AL PENDIENTE DE OTRO TIPO DE Archivos
+
+nodemon server -e js,hbs,html,css
+Con esto le decimos a nodemon  que este pendiente de archivos cuya extension es la descrita en el comando.
+
+HELPERS
+Es un helpelr es una accion que se dispara cuando el template lo requiere
+Si varias vistas requieren del año para ponerlo en el footer tendriamos que enviarle
+siempre como parametro el año como de la siguiente manera
+app.get('/', (req, res) => {
+    res.render('home',{
+        anio: new Date().getFullYear()
+    });
+});
+
+Para no repetir el mismo codigo entonces creamos un helper y lo declaramos en el server.js
+de la siguiente manera
+hbs.registerHelper('getAnio', () => {
+    return new Date().getFullYear();
+});
+
+dicha funcion 'getAnio' al ser declarada como helper puede ser llamada desde cualquier parte del codigo
+vendria hacer como los objetos estaticos en Java. y asi ya no se lo tendriamos que enviar 
+en cada vista si no mas bien solo mandar a llamar a dicha funcion asi:
+{{getAnio}}
+
+Si creamos un helper llamado capitalizar y este recibe un parametro se declara de la misma forma que el 
+anterior helper pero recibiendo un parametro y cuando se mande a llamar se hace de la siguiente manera
+{{ capitalizar parametro }}
+
+Si movemos todos los hbs a un archivo diferente donde solo haya HELPERS
+no es necesario exportarlos.(module.export xxx)
+solo debemos importarlo en el server.js
+
+Deployar en Heroku
+1. Click en new 
+2. Click en crear nueva aplicacacion
+3. Poner nombre a una app
+4. Elegir la region mas cercana a nosotros(USA)
+5. Create app
+6. Click en Heroku Click
+7. Descargamos Heroku Click
+8. Instalar Heroku Click
+9. Ir al proyecto
+10. En el server.js (como no sabemos el puerto que nos va asignar heroku) entonces 
+ponemos
+const port = process.env.PORT || 3000;
+y remplazamos en la linea
+app.listen(3000,()=>{
+	console.log("Escuchando en el puero 3000");
+});
+por estas otras lineas
+app.listen(port,()=>{
+	console.log(`Escuchando en el puero ${port}`);
+});
+11.Como heroku no sabe que comandos se van a ejecutar
+nos vamos al package.json en la parte de scripts
+"scrips":{
+	"start":"node server.js",
+}
+Nota se coloco ese comando ya que asi es como levanta nuestro servidor pero podria
+ser cualquier otro comando como nodemon server.js, etc etc
+12. Crear archivo git ignore e ignorar los node_modules
+Empezamos a trabajar como si fuera git, abrimos una consola y ejecutamos
+13. git add . 
+14. git commit -m "primer init"
+NOTA: Si ya se tiene en git el proyecto y ademas ya se hizo el ultimo commit no es necesario el paso 12 y 14
+15. heroku login
+16. colocamos correo de heroku
+17. contraseña de heroku
+18. heroku git:remote -a <nombre de app del paso 3>
+19. git push heroku master
+20. Luego heroku nos provee el link
+21. Para subir mas cambios a heroku se utiliza
+git push heroku master
+
+Mongodb
+1. Descargar la bbdd mongodb en su pagina oficial
+la version community
+2. Instalar la bbdd 
+3. El el disco local C creamos una carpeta llamada data
+4. dentro de la carpeta data creamos otra llamada db
+Nota: Al instalar mongodb podemos instalarlo como servicio
+si no de lo contrario siempre tendriamos que ejecutarlo y esto se 
+hace ejecutando el archivo 
+D:\Programas_Instalados\mongo\bin\mongod.exe
+y luego
+D:\Programas_Instalados\mongo\bin\mongo.exe
+2. Descarga el cliente Robo 3t
+
+Rest Server
+1. npm init
+2. Si a todo
+3. Instalar express con 
+	npm install express --save
+4. Creamos un nuevo folder llamado server
+5. creamos un archivo en el folder del paso anterior
+   llamado server.js
+6. En el archivo del paso anterior colocamos el siguiente 
+	codigo
+
+const express = require('express');
+const app = express();
+
+app.get('/', function(req, res) {
+    res.json('Hello World');
+})
+
+app.listen(3000, () => {
+    console.log('Escuchando puerto: ', 3000)
+});
+
+7. Rutas con parametros
+
+app.put('/usuario/;id', function(req, res) {
+    let id = req.params.id;
+    res.json({id});
+})
+
+Body Paser
+8. instalar body parser-> paquete encargado de serializar en un 
+objeto json la informacion del request que trae una peticion Postman
+
+npm install body-parser --save
+
+9. Para la configuracion en el server.js agregamos las siguientes
+lineas
+
+const bodyParser=require('body-parser');
+app.use(bodyParser.urlencoded({ extended:false }))
+
+Nota: Siempre que veamos un app.use son midlewares ademas
+en el codigo anterior en el body parser utilizamos
+urlencoded pero podemos utilizar el json que es el 
+que mas se utilizas
+
+10. utilizar el body parser en una peticion post
+
+
