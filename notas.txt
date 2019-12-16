@@ -774,4 +774,62 @@ que mas se utilizas
 
 10. utilizar el body parser en una peticion post
 
+app.post('/usuario', function (req, res) {
+    let body = req.body
 
+    if (body.nombre === undefined) {
+        res.status(400).json({
+            ok: false,
+            mensaje: "El nombre es necesario"
+        });
+    } else {
+        res.json({
+            persona: body
+        });
+    }
+    console.log(req.body);
+    res.json({ body });
+});
+
+Notese que podemos enviar el status y por la cualidad de funciones en cadena podemos 
+enviar un json de respuesta tambien.
+
+Deploy en Heroku 1
+
+Otra forma de subir un app a heroku es la siguiente
+
+1. heroku create -h 
+	puedo poner un nombre, pero si solo damos enter heroku create sin -h heroku crea el nombre por nosotros y nos devuelve el link.
+2. git push heroku master
+3. nos devuelve el link https://still-spire-54821.herokuapp.com/ 
+4. tenemos que agregarle en el package.json en la parte de start
+	node server/server.js
+
+5. guardar cambios luego git add . despues git add commit -m "mensage"
+6. git push heroku master
+
+Mongoose
+
+Es una libreria para conectarse con mongo desde node.
+
+INSTALAR MONGOOSE
+npm install mongoose --save
+
+Requerir mongoose
+En el server.js
+const mogoose=require('mongoose');
+
+Conectar a mongoose
+
+mongoose.connect('mongodb://localhost:27017/my_database');
+
+Ejemplo
+mongoose.connect("mongodb://localhost:27017/cafe", (err, res) => {
+  if (err) throw err;
+  console.log("Base de datos online");
+});
+
+-Crear Schema de base de datos ::PENDIENTE
+
+INSTALAR VALIDADOR DE MOONGOSE
+npm i mongoose-unique-validator
