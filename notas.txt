@@ -489,11 +489,12 @@ para ello y es http
 
 Ejemplo
 const http = require('http');
+
 http.createServer((req, res) => {
         res.write('Hola Mundo');
         res.end();
-    })
-    .listen(8080);
+})
+.listen(8080);
 
 Variacion del Ejemplo
 const http = require('http');
@@ -766,6 +767,7 @@ lineas
 
 const bodyParser=require('body-parser');
 app.use(bodyParser.urlencoded({ extended:false }))
+app.use(bodyParser.json({ extended: false }))//para recibir json
 
 Nota: Siempre que veamos un app.use son midlewares ademas
 en el codigo anterior en el body parser utilizamos
@@ -833,3 +835,49 @@ mongoose.connect("mongodb://localhost:27017/cafe", (err, res) => {
 
 INSTALAR VALIDADOR DE MOONGOSE
 npm i mongoose-unique-validator
+
+Modelos en MOONGOSE
+Paso1 se crea un archivo de preferencia con el nombre del Modelo
+Paso2 se requiere mongose const 
+	const mongoose = require("mongoose");
+Paso3 se requiere la funcion schema de mongose
+	let Schema = mongoose.Schema;
+Paso4 se instancia el Schema con el nombre del modelo
+	let usuarioSchema = new Schema({Campos del schema})
+Opcional: si se quiere hacer validaciones en el modelo se instalar el validator
+Paso 5: se requiere el validator
+	const uniqueValidator = require("mongoose-unique-validator");
+Paso 6: Se indica que campos son unicos asi:
+	emai: {
+    type: String,
+    unique: true,
+    require: [true, "El correo es necesarios"]
+  },
+Paso 7: se utiliza el plugin asi:
+instanaciaSchema.plugin(uniqueValidator, { message: "{PATH} debe de ser unico" });
+
+INSTALAR BCRYPT
+Este paquete sirve para encriptar contraseñas
+npm install bcrypt
+
+USAR BCRYPT
+Paso1: requerir bcrypt
+	const bcrypt=require('bcrypt');
+Paso2: utilizar la siguiente funcion en el dato que se quiere encryptar
+let usuario = new Usuario({
+    nombre: body.nombre,
+    email: body.email,
+    password:bcrypt.hashSync(body.password,10),
+    role: body.role
+  });
+La funcion necesita el campo que se desea encriptar y el numero de vueltas de encriptacion
+
+INSTALAT UNDERSCORE
+npm install underscore
+Amplia la funcionalidad de javascript.
+Para usarlos
+const _ = require('underscore');
+
+Esta libreria con su metodo pick ayuda a indicar en la ruta de actualizacion que campos
+son actualizables:
+ let body=_.pick(req.body,['nombre','email','img','role','estado']);
