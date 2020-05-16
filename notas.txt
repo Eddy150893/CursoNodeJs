@@ -881,3 +881,37 @@ const _ = require('underscore');
 Esta libreria con su metodo pick ayuda a indicar en la ruta de actualizacion que campos
 son actualizables:
  let body=_.pick(req.body,['nombre','email','img','role','estado']);
+
+ MONGOATLAS
+ 1. Crearse una cuenta
+ 2. Iniciar sesion en mongo atlas
+ 3. Click clusters->Build a clusters
+ 4. Seleccionar AWX
+ 5. Seleccionar uno cerca de nuestro pais y que fdiga freee tier available
+ 6. Create cluster
+ 7. Esperar a que cargue
+ 8. click en security->click en Network Access
+ 9. configurar las direcciones ip's que el server tiene permitido conectarse al cluster
+ 10. Click en ADD IP ADDRESS
+ 11. ALLOW ACCESS FROM ANYWHERE
+ 12. click en confirm
+ 13. click en Database Access
+ 14. click en ADD NEW DATABASE USER
+ 15. click en atlas admin
+ 16. colocar un nombre de usuario(root)
+ 17. colocar una contraseña en este caso (uYRiSH8vWZ60i0CN)
+ 18. add user
+ CREAR BBDD en MONGO ATLAS
+ 1. click en collections
+ 2. Create Database
+ 3. colocar nombre de base de datos
+ 4. colocar nombre de la primera coleccion
+
+ CONECTARSE A MONGODB ATLASS
+ 1. click en clusters
+ 2. click en connect
+ 3. click en connect with mongodb compass
+ 4. descargarlo e instalarlo
+ 5. abrimos mongodb compass
+ 6. en mongoAtlas repetir los pasos 1,2,3 y copiar la cadena de conexion que aparece
+ 7. colocar la cadena de conexion den mongodb compass
