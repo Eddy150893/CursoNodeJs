@@ -713,6 +713,17 @@ NOTA: Si ya se tiene en git el proyecto y ademas ya se hizo el ultimo commit no 
 21. Para subir mas cambios a heroku se utiliza
 git push heroku master
 
+NOTA: En el packege.json debe de ser el script para iniciar node(node server.js/server.js) si dejamos nodemon no funcionara.
+NOTA2: Para setear una variable de configuracion de heroku se utiliza
+Ejemplos:
+Setear una variable de entorno
+heroku config:set nombre="Eddy"
+Get una variable de entorno
+heroku config:get nombre
+Eliminar una variable de entorno
+heroku config:unset nombre
+
+
 Mongodb
 1. Descargar la bbdd mongodb en su pagina oficial
 la version community
@@ -907,7 +918,7 @@ son actualizables:
  3. colocar nombre de base de datos
  4. colocar nombre de la primera coleccion
 
- CONECTARSE A MONGODB ATLASS
+ CONECTARSE A MONGODB ATLASS con mongo compass
  1. click en clusters
  2. click en connect
  3. click en connect with mongodb compass
@@ -915,3 +926,10 @@ son actualizables:
  5. abrimos mongodb compass
  6. en mongoAtlas repetir los pasos 1,2,3 y copiar la cadena de conexion que aparece
  7. colocar la cadena de conexion den mongodb compass
+
+ Conectarse a mongo atlass desde nuestra app con mongoose
+ 1. click en clusters
+ 2. click en connect
+ 3. click en connect with mongodb compas
+ 4. colocar la cadena de conexion en la conexion de mongoose
+ mongodb+srv://root:<password>@cluster0-pqmpq.mongodb.net/test
